@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Smart Mortgage Calculator</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: flex-start;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Main content */
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Mission section */
+        .mission-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f4fc 100%);
+            padding: 2.5rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+            border-left: 5px solid #3498db;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        .mission-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #2c3e50;
+        }
+        
+        /* Features section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            border-top: 3px solid #3498db;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        /* Team/Values section */
+        .values-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+        
+        .values-section h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .value-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .value-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        /* Call to action */
+        .cta-section {
+            text-align: center;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #2c3e50;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .cta-button:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eaeaea;
+            color: #7f8c8d;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .nav-links a {
+                display: block;
+                text-align: center;
+                padding: 0.8rem;
+            }
+            
+            .features-grid,
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mission-section,
+            .values-section,
+            .cta-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Mortgage Calculator</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="disclaimer.html">Disclaimer</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <header class="header">
+            <h1>About Smart Mortgage Calculator</h1>
+            <p class="tagline">Empowering homebuyers with clarity, accuracy, and confidence in every financial decision</p>
+        </header>
+
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <h2>Our Mission</h2>
+            <p class="mission-text">
+                At Smart Mortgage Calculator, we believe that financial clarity should be accessible to everyone. 
+                Homeownership is one of life's most significant investments, and we're here to demystify the numbers 
+                behind it. Our mission is to provide accurate, intuitive tools that help you understand exactly what 
+                your mortgage means for your financial future—no jargon, no confusion, just clear insights.
+            </p>
+        </section>
+
+        <!-- What Makes Us Different -->
+        <section>
+            <h2>What Makes Us Different</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Deep Financial Insights</h3>
+                    <p>We go beyond basic calculations to show you the complete picture—from monthly payments to lifetime interest and detailed amortization schedules.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>User-First Design</h3>
+                    <p>Our tools are built with you in mind. Clean interfaces, intuitive controls, and explanations that make complex financial concepts simple to understand.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacy-Focused</h3>
+                    <p>Your financial data stays with you. All calculations happen in your browser—we don't store or track the sensitive information you enter.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Educational Approach</h3>
+                    <p>We're not just a calculator—we're a learning resource. Our content helps you become a more informed and confident homebuyer.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Values -->
+        <section class="values-section">
+            <h2>Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon">✓</div>
+                    <h3>Accuracy First</h3>
+                    <p>Every calculation is meticulously designed to provide reliable, up-to-date financial estimates.</p>
+                </div>
+                
+                <div class="value-item">
+                    <div class="value-icon">💡</div>
+                    <h3>Transparency</h3>
+                    <p>We explain how calculations work and what the numbers mean for your specific situation.</p>
+                </div>
+                
+                <div class="value-item">
+                    <div class="value-icon">🤝</div>
+                    <h3>Empowerment</h3>
+                    <p>We equip you with knowledge and tools to make confident financial decisions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2>Ready to Plan Your Future?</h2>
+            <p>Start using our comprehensive mortgage calculator today to gain clarity on your homebuying journey.</p>
+            <a href="index.html" class="cta-button">Try Our Calculator Now</a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Smart Mortgage Calculator. All rights reserved.</p>
+        <p>This tool is for educational purposes only. Please consult with a financial advisor for personal advice.</p>
+    </footer>
+</body>
+</html>
