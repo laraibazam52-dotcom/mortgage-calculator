@@ -3,713 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Mortgage Calculator</title>
+    <title>Smart Mortgage Calculator | Interactive Tool</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-        }
-
-        h1 {
-            color: #2c3e50;
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #3498db, #2ecc71);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .tagline {
-            color: #7f8c8d;
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .calculator-card {
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            transition: transform 0.3s ease;
-        }
-
-        .calculator-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .calculator-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            color: #2c3e50;
-        }
-
-        .calculator-header i {
-            font-size: 28px;
-            margin-right: 15px;
-            color: #3498db;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        .input-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #34495e;
-        }
-
-        .input-with-icon {
-            position: relative;
-        }
-
-        .input-with-icon i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #7f8c8d;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px 15px 15px 45px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-        }
-
-        .range-container {
-            margin-top: 10px;
-        }
-
-        .range-value {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        button {
-            flex: 1;
-            padding: 16px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        button i {
-            margin-right: 10px;
-        }
-
-        .calculate-btn {
-            background: linear-gradient(90deg, #3498db, #2980b9);
-            color: white;
-        }
-
-        .calculate-btn:hover {
-            background: linear-gradient(90deg, #2980b9, #2573a7);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
-        }
-
-        .reset-btn {
-            background-color: #ecf0f1;
-            color: #2c3e50;
-        }
-
-        .reset-btn:hover {
-            background-color: #dfe6e9;
-        }
-
-        .results-card {
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-        }
-
-        .results-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            color: #2c3e50;
-        }
-
-        .results-header i {
-            font-size: 28px;
-            margin-right: 15px;
-            color: #2ecc71;
-        }
-
-        .result-item {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 5px solid #3498db;
-        }
-
-        .result-label {
-            font-size: 14px;
-            color: #7f8c8d;
-            margin-bottom: 5px;
-        }
-
-        .result-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #2c3e50;
-        }
-
-        .result-subtext {
-            font-size: 14px;
-            color: #95a5a6;
-            margin-top: 5px;
-        }
-
-        .amortization-section {
-            margin-top: 40px;
-        }
-
-        .amortization-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .amortization-table th {
-            background-color: #3498db;
-            color: white;
-            padding: 15px;
-            text-align: left;
-        }
-
-        .amortization-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .amortization-table tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        .amortization-table tr:hover {
-            background-color: #e8f4fc;
-        }
-
-        .info-section {
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-bottom: 40px;
-        }
-
-        .info-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            color: #2c3e50;
-        }
-
-        .info-header i {
-            font-size: 28px;
-            margin-right: 15px;
-            color: #e74c3c;
-        }
-
-        .term-explanation {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .term-card {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            border-top: 4px solid #9b59b6;
-        }
-
-        .term-card h4 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .term-card p {
-            color: #555;
-            font-size: 15px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #7f8c8d;
-            font-size: 14px;
-            border-top: 1px solid #eee;
-            margin-top: 30px;
-        }
-
-        .note {
-            background-color: #fffde7;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            border-left: 5px solid #f1c40f;
-            font-size: 14px;
-        }
-
-        .note i {
-            color: #f1c40f;
-            margin-right: 10px;
-        }
-
-        @media (max-width: 480px) {
-            .buttons {
-                flex-direction: column;
-            }
-            
-            .term-explanation {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .calculator-card, .results-card, .info-section {
-                padding: 20px;
-            }
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
             <h1><i class="fas fa-calculator"></i> Smart Mortgage Calculator</h1>
-            <p class="tagline">Calculate your monthly payments, total interest, and see your amortization schedule</p>
+            <p class="subtitle">Calculate your monthly payments, total interest, and visualize your amortization schedule</p>
         </header>
 
-        <div class="main-content">
-            <div class="calculator-card">
-                <div class="calculator-header">
-                    <i class="fas fa-edit"></i>
-                    <h2>Enter Loan Details</h2>
-                </div>
+        <div class="calculator-wrapper">
+            <!-- Input Section -->
+            <div class="input-section">
+                <h2><i class="fas fa-edit"></i> Enter Loan Details</h2>
                 
                 <div class="input-group">
-                    <label for="loanAmount">Loan Amount ($)</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-dollar-sign"></i>
-                        <input type="number" id="loanAmount" min="1000" max="5000000" step="1000" value="300000" placeholder="Enter loan amount">
+                    <div class="input-header">
+                        <label for="loanAmount">Loan Amount ($)</label>
+                        <span class="value-display" id="loanAmountValue">$300,000</span>
                     </div>
-                    <div class="range-container">
-                        <input type="range" id="loanAmountRange" min="1000" max="5000000" step="1000" value="300000">
-                        <div class="range-value">
+                    <div class="slider-container">
+                        <input type="range" id="loanAmount" min="1000" max="5000000" value="300000" step="1000" class="slider">
+                        <div class="slider-labels">
                             <span>$1,000</span>
                             <span>$5,000,000</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="input-group">
-                    <label for="interestRate">Interest Rate (%)</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-percent"></i>
-                        <input type="number" id="interestRate" min="0.1" max="20" step="0.1" value="4.5" placeholder="Enter interest rate">
+                    <div class="input-header">
+                        <label for="interestRate">Interest Rate (%)</label>
+                        <span class="value-display" id="interestRateValue">4.5%</span>
                     </div>
-                    <div class="range-container">
-                        <input type="range" id="interestRateRange" min="0.1" max="20" step="0.1" value="4.5">
-                        <div class="range-value">
+                    <div class="slider-container">
+                        <input type="range" id="interestRate" min="0.1" max="20" value="4.5" step="0.1" class="slider">
+                        <div class="slider-labels">
                             <span>0.1%</span>
                             <span>20%</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="input-group">
-                    <label for="loanTerm">Loan Term (Years)</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                        <input type="number" id="loanTerm" min="1" max="50" step="1" value="30" placeholder="Enter loan term">
+                    <div class="input-header">
+                        <label for="loanTerm">Loan Term (Years)</label>
+                        <span class="value-display" id="loanTermValue">30 years</span>
                     </div>
-                    <div class="range-container">
-                        <input type="range" id="loanTermRange" min="1" max="50" step="1" value="30">
-                        <div class="range-value">
+                    <div class="slider-container">
+                        <input type="range" id="loanTerm" min="1" max="50" value="30" step="1" class="slider">
+                        <div class="slider-labels">
                             <span>1 year</span>
                             <span>50 years</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="buttons">
-                    <button class="calculate-btn" id="calculateBtn">
+
+                <div class="button-group">
+                    <button id="calculateBtn" class="btn-calculate">
                         <i class="fas fa-calculator"></i> Calculate Mortgage
                     </button>
-                    <button class="reset-btn" id="resetBtn">
+                    <button id="resetBtn" class="btn-reset">
                         <i class="fas fa-redo"></i> Reset
                     </button>
                 </div>
             </div>
-            
-            <div class="results-card">
-                <div class="results-header">
-                    <i class="fas fa-chart-line"></i>
-                    <h2>Mortgage Results</h2>
-                </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <h2><i class="fas fa-chart-line"></i> Mortgage Results</h2>
                 
-                <div class="result-item">
-                    <div class="result-label">Monthly Payment</div>
-                    <div class="result-value" id="monthlyPayment">$1,520.06</div>
-                    <div class="result-subtext">Principal & Interest</div>
-                </div>
-                
-                <div class="result-item">
-                    <div class="result-label">Total Interest Paid</div>
-                    <div class="result-value" id="totalInterest">$247,220.60</div>
-                    <div class="result-subtext">Over the life of the loan</div>
-                </div>
-                
-                <div class="result-item">
-                    <div class="result-label">Total Payment</div>
-                    <div class="result-value" id="totalPayment">$547,220.60</div>
-                    <div class="result-subtext">Principal + Interest</div>
-                </div>
-                
-                <div class="amortization-section">
-                    <h3>Amortization Schedule (Yearly Breakdown)</h3>
-                    <div class="note">
-                        <i class="fas fa-info-circle"></i>
-                        This table shows how much principal and interest you pay each year
+                <div class="results-summary">
+                    <div class="result-card primary">
+                        <div class="result-label">Monthly Payment</div>
+                        <div class="result-value" id="monthlyPayment">$1,520.06</div>
+                        <div class="result-note">Principal & Interest</div>
                     </div>
-                    <table class="amortization-table" id="amortizationTable">
-                        <thead>
-                            <tr>
-                                <th>Year</th>
-                                <th>Principal Paid</th>
-                                <th>Interest Paid</th>
-                                <th>Remaining Balance</th>
-                            </tr>
-                        </thead>
-                        <tbody id="amortizationBody">
-                            <!-- Amortization rows will be inserted here by JavaScript -->
-                        </tbody>
-                    </table>
+                    
+                    <div class="result-card">
+                        <div class="result-label">Total Interest Paid</div>
+                        <div class="result-value" id="totalInterest">$247,220.13</div>
+                        <div class="result-note">Over the life of the loan</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <div class="result-label">Total Payment</div>
+                        <div class="result-value" id="totalPayment">$547,220.13</div>
+                        <div class="result-note">Principal + Interest</div>
+                    </div>
+                </div>
+
+                <!-- Chart Section -->
+                <div class="chart-section">
+                    <h3><i class="fas fa-chart-pie"></i> Payment Breakdown</h3>
+                    <div class="chart-container">
+                        <canvas id="paymentChart"></canvas>
+                    </div>
+                    <div class="chart-legend" id="chartLegend"></div>
+                </div>
+
+                <!-- Amortization Schedule -->
+                <div class="amortization-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-calendar-alt"></i> Amortization Schedule (Yearly Breakdown)</h3>
+                        <p class="section-subtitle">This table shows how much principal and interest you pay each year</p>
+                    </div>
+                    
+                    <div class="table-controls">
+                        <div class="entries-control">
+                            <label>Show entries:</label>
+                            <select id="entriesPerPage">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">All</option>
+                            </select>
+                        </div>
+                        <div class="search-control">
+                            <input type="text" id="searchTable" placeholder="Search years...">
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table id="amortizationTable">
+                            <thead>
+                                <tr>
+                                    <th>Year <i class="fas fa-sort" id="sortYear"></i></th>
+                                    <th>Principal Paid <i class="fas fa-sort" id="sortPrincipal"></i></th>
+                                    <th>Interest Paid <i class="fas fa-sort" id="sortInterest"></i></th>
+                                    <th>Remaining Balance <i class="fas fa-sort" id="sortBalance"></i></th>
+                                    <th>Cumulative Interest <i class="fas fa-sort" id="sortCumulative"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody id="amortizationBody">
+                                <!-- Will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="table-footer">
+                        <div class="pagination-info" id="paginationInfo">Showing 1 to 10 of 30 entries</div>
+                        <div class="pagination-controls">
+                            <button id="prevPage" class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                            <div class="page-numbers" id="pageNumbers"></div>
+                            <button id="nextPage" class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="info-section">
-            <div class="info-header">
-                <i class="fas fa-info-circle"></i>
-                <h2>Understanding Mortgage Terms</h2>
-            </div>
+
+        <!-- Educational Section with Accordion -->
+        <div class="education-section">
+            <h2><i class="fas fa-graduation-cap"></i> Understanding Mortgage Terms</h2>
+            <p class="education-intro">Learn about key mortgage concepts to make informed decisions about your loan.</p>
             
-            <div class="term-explanation">
-                <div class="term-card">
-                    <h4>Loan Amount</h4>
-                    <p>The total amount of money you're borrowing to purchase a home. This is typically the purchase price minus your down payment.</p>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <i class="fas fa-home"></i>
+                        <span>Loan Amount</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>The total amount of money you're borrowing to purchase a home. This is typically the purchase price minus your down payment. A larger loan amount means higher monthly payments and more interest paid over time.</p>
+                    </div>
                 </div>
                 
-                <div class="term-card">
-                    <h4>Interest Rate</h4>
-                    <p>The annual cost of borrowing money, expressed as a percentage. This is what the lender charges you for the loan.</p>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <i class="fas fa-percentage"></i>
+                        <span>Interest Rate</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>The annual cost of borrowing money, expressed as a percentage. This is what the lender charges you for the loan. Even a small difference in interest rate can significantly impact your total payment over the life of the loan.</p>
+                    </div>
                 </div>
                 
-                <div class="term-card">
-                    <h4>Loan Term</h4>
-                    <p>The length of time you have to repay the loan, usually expressed in years. Common terms are 15, 20, or 30 years.</p>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <i class="fas fa-clock"></i>
+                        <span>Loan Term</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>The length of time you have to repay the loan, usually expressed in years. Common terms are 15, 20, or 30 years. Shorter terms typically have higher monthly payments but lower total interest paid.</p>
+                    </div>
                 </div>
                 
-                <div class="term-card">
-                    <h4>Monthly Payment</h4>
-                    <p>The amount you pay each month, which includes both principal (the loan amount) and interest (the cost of borrowing).</p>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Monthly Payment</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>The amount you pay each month, which includes both principal (the loan amount) and interest (the cost of borrowing). In the early years of a mortgage, most of your payment goes toward interest rather than principal.</p>
+                    </div>
                 </div>
                 
-                <div class="term-card">
-                    <h4>Total Interest</h4>
-                    <p>The total amount of interest you'll pay over the entire life of the loan. This can sometimes exceed the original loan amount.</p>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Total Interest</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>The total amount of interest you'll pay over the entire life of the loan. This can sometimes exceed the original loan amount, especially with longer-term loans or higher interest rates.</p>
+                    </div>
                 </div>
                 
-                <div class="term-card">
-                    <h4>Amortization</h4>
-                    <p>The process of paying off debt over time through regular payments. Early payments consist mostly of interest; later payments consist mostly of principal.</p>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Amortization</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>The process of paying off debt over time through regular payments. Early payments consist mostly of interest; later payments consist mostly of principal.</p>
+                        <div class="tip-box">
+                            <strong><i class="fas fa-lightbulb"></i> Pro Tip:</strong> Making extra payments toward principal can significantly reduce the total interest paid and shorten your loan term. Even one extra payment per year can save thousands in interest!
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="note">
-                <i class="fas fa-lightbulb"></i>
-                <strong>Tip:</strong> Making extra payments toward principal can significantly reduce the total interest paid and shorten your loan term.
             </div>
         </div>
-        
+
         <footer>
-            <p>© <span id="currentYear"></span> Smart Mortgage Calculator | This tool is for educational purposes only. Consult with a financial advisor for professional mortgage advice.</p>
+            <p>© <span id="currentYear"></span> Smart Mortgage Calculator. This tool provides estimates for educational purposes. For exact figures, consult with a financial advisor.</p>
         </footer>
     </div>
 
-    <script>
-        // DOM Elements
-        const loanAmountInput = document.getElementById('loanAmount');
-        const loanAmountRange = document.getElementById('loanAmountRange');
-        const interestRateInput = document.getElementById('interestRate');
-        const interestRateRange = document.getElementById('interestRateRange');
-        const loanTermInput = document.getElementById('loanTerm');
-        const loanTermRange = document.getElementById('loanTermRange');
-        const calculateBtn = document.getElementById('calculateBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const monthlyPaymentEl = document.getElementById('monthlyPayment');
-        const totalInterestEl = document.getElementById('totalInterest');
-        const totalPaymentEl = document.getElementById('totalPayment');
-        const amortizationBody = document.getElementById('amortizationBody');
-        const currentYearEl = document.getElementById('currentYear');
-
-        // Set current year in footer
-        currentYearEl.textContent = new Date().getFullYear();
-
-        // Sync range sliders with number inputs
-        loanAmountInput.addEventListener('input', () => {
-            loanAmountRange.value = loanAmountInput.value;
-            calculateMortgage();
-        });
-
-        loanAmountRange.addEventListener('input', () => {
-            loanAmountInput.value = loanAmountRange.value;
-            calculateMortgage();
-        });
-
-        interestRateInput.addEventListener('input', () => {
-            interestRateRange.value = interestRateInput.value;
-            calculateMortgage();
-        });
-
-        interestRateRange.addEventListener('input', () => {
-            interestRateInput.value = interestRateRange.value;
-            calculateMortgage();
-        });
-
-        loanTermInput.addEventListener('input', () => {
-            loanTermRange.value = loanTermInput.value;
-            calculateMortgage();
-        });
-
-        loanTermRange.addEventListener('input', () => {
-            loanTermInput.value = loanTermRange.value;
-            calculateMortgage();
-        });
-
-        // Calculate button event
-        calculateBtn.addEventListener('click', calculateMortgage);
-
-        // Reset button event
-        resetBtn.addEventListener('click', () => {
-            loanAmountInput.value = 300000;
-            loanAmountRange.value = 300000;
-            interestRateInput.value = 4.5;
-            interestRateRange.value = 4.5;
-            loanTermInput.value = 30;
-            loanTermRange.value = 30;
-            calculateMortgage();
-        });
-
-        // Format currency
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 2
-            }).format(amount);
-        }
-
-        // Calculate mortgage function
-        function calculateMortgage() {
-            // Get input values
-            const loanAmount = parseFloat(loanAmountInput.value);
-            const annualInterestRate = parseFloat(interestRateInput.value);
-            const loanTermYears = parseFloat(loanTermInput.value);
-
-            // Calculate monthly interest rate
-            const monthlyInterestRate = annualInterestRate / 100 / 12;
-            
-            // Calculate total number of payments
-            const totalPayments = loanTermYears * 12;
-            
-            // Calculate monthly payment using the formula: P * r * (1+r)^n / ((1+r)^n - 1)
-            // Where P = principal, r = monthly interest rate, n = total number of payments
-            const monthlyPayment = loanAmount * 
-                (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, totalPayments)) / 
-                (Math.pow(1 + monthlyInterestRate, totalPayments) - 1);
-            
-            // Calculate total payment and total interest
-            const totalPayment = monthlyPayment * totalPayments;
-            const totalInterest = totalPayment - loanAmount;
-            
-            // Update results display
-            monthlyPaymentEl.textContent = formatCurrency(monthlyPayment);
-            totalInterestEl.textContent = formatCurrency(totalInterest);
-            totalPaymentEl.textContent = formatCurrency(totalPayment);
-            
-            // Generate amortization schedule
-            generateAmortizationSchedule(loanAmount, annualInterestRate, loanTermYears, monthlyPayment);
-        }
-
-        // Generate amortization schedule
-        function generateAmortizationSchedule(loanAmount, annualInterestRate, loanTermYears, monthlyPayment) {
-            // Clear existing table rows
-            amortizationBody.innerHTML = '';
-            
-            let remainingBalance = loanAmount;
-            const monthlyInterestRate = annualInterestRate / 100 / 12;
-            const totalPayments = loanTermYears * 12;
-            
-            let year = 1;
-            let yearPrincipal = 0;
-            let yearInterest = 0;
-            
-            for (let payment = 1; payment <= totalPayments; payment++) {
-                // Calculate interest for this payment
-                const interestPayment = remainingBalance * monthlyInterestRate;
-                
-                // Calculate principal for this payment
-                const principalPayment = monthlyPayment - interestPayment;
-                
-                // Update remaining balance
-                remainingBalance -= principalPayment;
-                
-                // If remaining balance is negative, set to 0
-                if (remainingBalance < 0) remainingBalance = 0;
-                
-                // Accumulate yearly totals
-                yearPrincipal += principalPayment;
-                yearInterest += interestPayment;
-                
-                // At the end of each year or last payment, add a row to the table
-                if (payment % 12 === 0 || payment === totalPayments) {
-                    const row = document.createElement('tr');
-                    
-                    // Year cell
-                    const yearCell = document.createElement('td');
-                    yearCell.textContent = year;
-                    row.appendChild(yearCell);
-                    
-                    // Principal paid cell
-                    const principalCell = document.createElement('td');
-                    principalCell.textContent = formatCurrency(yearPrincipal);
-                    row.appendChild(principalCell);
-                    
-                    // Interest paid cell
-                    const interestCell = document.createElement('td');
-                    interestCell.textContent = formatCurrency(yearInterest);
-                    row.appendChild(interestCell);
-                    
-                    // Remaining balance cell
-                    const balanceCell = document.createElement('td');
-                    balanceCell.textContent = formatCurrency(remainingBalance);
-                    row.appendChild(balanceCell);
-                    
-                    amortizationBody.appendChild(row);
-                    
-                    // Reset yearly totals and increment year
-                    yearPrincipal = 0;
-                    yearInterest = 0;
-                    year++;
-                }
-            }
-            
-            // If no rows were added (loan term less than 1 year), add one row
-            if (amortizationBody.children.length === 0) {
-                const row = document.createElement('tr');
-                
-                const yearCell = document.createElement('td');
-                yearCell.textContent = 1;
-                row.appendChild(yearCell);
-                
-                const principalCell = document.createElement('td');
-                principalCell.textContent = formatCurrency(loanAmount);
-                row.appendChild(principalCell);
-                
-                const interestCell = document.createElement('td');
-                interestCell.textContent = formatCurrency(totalPayment - loanAmount);
-                row.appendChild(interestCell);
-                
-                const balanceCell = document.createElement('td');
-                balanceCell.textContent = formatCurrency(0);
-                row.appendChild(balanceCell);
-                
-                amortizationBody.appendChild(row);
-            }
-        }
-
-        // Initialize calculator on page load
-        document.addEventListener('DOMContentLoaded', calculateMortgage);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
