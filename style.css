@@ -10,9 +10,44 @@ body {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     color: #333;
     min-height: 100vh;
-    padding: 10px; /* NEW: Reduced padding for mobile */
-    width: 100%; /* NEW: Prevent horizontal overflow */
-    overflow-x: hidden; /* NEW: Prevent horizontal scroll */
+    padding: 10px; /* Reduced padding for mobile */
+    width: 100%; /* Prevent horizontal overflow */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Mobile touch optimizations */
+.touch-device .slider::-webkit-slider-thumb {
+    width: var(--thumb-size, 28px);
+    height: var(--thumb-size, 28px);
+}
+
+.touch-device .page-btn,
+.touch-device .page-number {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Better focus states for mobile */
+button:focus, input:focus, select:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+}
+
+/* Prevent text selection on interactive elements */
+.btn-calculate, .btn-reset, .page-btn, .page-number,
+.accordion-header, thead th {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Hide scrollbar for table on iOS */
+.table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #2c3e50;
+    border-radius: 4px;
 }
 
 .container {
@@ -22,48 +57,59 @@ body {
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width: 100%; /* NEW: Full width on mobile */
-    padding: 0; /* NEW: Remove container padding */
+    width: 100%; /* Full width on mobile */
+    padding: 0; /* Remove container padding */
 }
 
 /* Header */
 header {
     background: linear-gradient(to right, #2c3e50, #4a6491);
     color: white;
-    padding: 25px 20px; /* NEW: Reduced padding for mobile */
+    padding: 25px 20px; /* Reduced padding for mobile */
     text-align: center;
 }
 
 header h1 {
-    font-size: clamp(1.5rem, 4vw, 2.5rem); /* NEW: Fluid font size */
+    font-size: clamp(1.5rem, 4vw, 2.5rem); /* Fluid font size */
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* NEW: Reduced gap for mobile */
-    flex-wrap: wrap; /* NEW: Allow wrapping on small screens */
+    gap: 10px; /* Reduced gap for mobile */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
 }
 
 .subtitle {
-    font-size: clamp(0.9rem, 2vw, 1.1rem); /* NEW: Fluid font size */
+    font-size: clamp(0.9rem, 2vw, 1.1rem); /* Fluid font size */
     opacity: 0.9;
     max-width: 600px;
     margin: 0 auto;
-    padding: 0 10px; /* NEW: Add side padding for mobile */
+    padding: 0 10px; /* Add side padding for mobile */
 }
 
 /* Calculator Wrapper */
 .calculator-wrapper {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    gap: 25px; /* NEW: Reduced gap for mobile */
-    padding: 25px; /* NEW: Reduced padding for mobile */
+    gap: 25px; /* Reduced gap for mobile */
+    padding: 25px; /* Reduced padding for mobile */
 }
 
 @media (max-width: 1100px) {
     .calculator-wrapper {
         grid-template-columns: 1fr;
-        gap: 20px; /* NEW: Reduced gap for tablet */
+        gap: 20px; /* Reduced gap for tablet */
+    }
+}
+
+/* Medium screens (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .calculator-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .input-section, .results-section {
+        width: 100%;
     }
 }
 
@@ -71,50 +117,50 @@ header h1 {
 .input-section {
     background: #f8f9fa;
     border-radius: 15px;
-    padding: 20px; /* NEW: Reduced padding for mobile */
+    padding: 20px; /* Reduced padding for mobile */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .input-section h2, .results-section h2 {
     color: #2c3e50;
-    margin-bottom: 20px; /* NEW: Reduced margin for mobile */
-    padding-bottom: 12px; /* NEW: Reduced padding for mobile */
+    margin-bottom: 20px; /* Reduced margin for mobile */
+    padding-bottom: 12px; /* Reduced padding for mobile */
     border-bottom: 2px solid #eaeaea;
     display: flex;
     align-items: center;
-    gap: 8px; /* NEW: Reduced gap for mobile */
-    font-size: clamp(1.2rem, 3vw, 1.5rem); /* NEW: Fluid font size */
+    gap: 8px; /* Reduced gap for mobile */
+    font-size: clamp(1.2rem, 3vw, 1.5rem); /* Fluid font size */
 }
 
 .input-group {
-    margin-bottom: 25px; /* NEW: Reduced margin for mobile */
+    margin-bottom: 25px; /* Reduced margin for mobile */
 }
 
 .input-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px; /* NEW: Reduced margin for mobile */
-    flex-wrap: wrap; /* NEW: Allow wrapping on small screens */
-    gap: 10px; /* NEW: Add gap for wrapped items */
+    margin-bottom: 8px; /* Reduced margin for mobile */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 10px; /* Add gap for wrapped items */
 }
 
 .input-header label {
     font-weight: 600;
     color: #2c3e50;
-    font-size: clamp(0.95rem, 2vw, 1.1rem); /* NEW: Fluid font size */
+    font-size: clamp(0.95rem, 2vw, 1.1rem); /* Fluid font size */
 }
 
 .value-display {
     background: #2c3e50;
     color: white;
-    padding: 6px 12px; /* NEW: Reduced padding for mobile */
+    padding: 6px 12px; /* Reduced padding for mobile */
     border-radius: 20px;
     font-weight: 600;
-    font-size: clamp(0.9rem, 2vw, 1.1rem); /* NEW: Fluid font size */
-    min-width: auto; /* NEW: Remove fixed min-width */
+    font-size: clamp(0.9rem, 2vw, 1.1rem); /* Fluid font size */
+    min-width: auto; /* Remove fixed min-width */
     text-align: center;
-    width: fit-content; /* NEW: Adjust width to content */
+    width: fit-content; /* Adjust width to content */
 }
 
 .slider-container {
@@ -124,7 +170,7 @@ header h1 {
 
 .slider {
     width: 100%;
-    height: 8px; /* NEW: Reduced height for mobile */
+    height: 8px; /* Reduced height for mobile */
     -webkit-appearance: none;
     appearance: none;
     background: linear-gradient(to right, #3498db, #2c3e50);
@@ -140,8 +186,8 @@ header h1 {
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 22px; /* NEW: Reduced size for mobile */
-    height: 22px; /* NEW: Reduced size for mobile */
+    width: 22px; /* Reduced size for mobile */
+    height: 22px; /* Reduced size for mobile */
     border-radius: 50%;
     background: #2c3e50;
     cursor: pointer;
@@ -150,8 +196,8 @@ header h1 {
 }
 
 .slider::-moz-range-thumb {
-    width: 22px; /* NEW: Reduced size for mobile */
-    height: 22px; /* NEW: Reduced size for mobile */
+    width: 22px; /* Reduced size for mobile */
+    height: 22px; /* Reduced size for mobile */
     border-radius: 50%;
     background: #2c3e50;
     cursor: pointer;
@@ -162,48 +208,70 @@ header h1 {
 .slider-labels {
     display: flex;
     justify-content: space-between;
-    margin-top: 6px; /* NEW: Reduced margin for mobile */
+    margin-top: 6px; /* Reduced margin for mobile */
     color: #666;
-    font-size: clamp(0.8rem, 1.5vw, 0.9rem); /* NEW: Fluid font size */
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem); /* Fluid font size */
 }
 
 /* Buttons */
 .button-group {
     display: flex;
-    gap: 12px; /* NEW: Reduced gap for mobile */
-    margin-top: 25px; /* NEW: Reduced margin for mobile */
-    flex-wrap: wrap; /* NEW: Allow buttons to stack on small screens */
+    gap: 12px; /* Reduced gap for mobile */
+    margin-top: 25px; /* Reduced margin for mobile */
+    flex-wrap: wrap; /* Allow buttons to stack on small screens */
 }
 
 .btn-calculate, .btn-reset {
     flex: 1;
-    padding: 14px 16px; /* NEW: Reduced padding for mobile */
+    padding: 14px 16px; /* Reduced padding for mobile */
     border: none;
     border-radius: 10px;
     font-weight: 600;
-    font-size: clamp(0.95rem, 2vw, 1.1rem); /* NEW: Fluid font size */
+    font-size: clamp(0.95rem, 2vw, 1.1rem); /* Fluid font size */
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* NEW: Reduced gap for mobile */
-    min-width: 140px; /* NEW: Minimum button width */
+    gap: 8px; /* Reduced gap for mobile */
+    min-width: 140px; /* Minimum button width */
+}
+
+.btn-calculate {
+    background: linear-gradient(to right, #27ae60, #219653);
+    color: white;
+}
+
+.btn-calculate:hover {
+    background: linear-gradient(to right, #219653, #1e8449);
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(39, 174, 96, 0.3);
+}
+
+.btn-reset {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.btn-reset:hover {
+    background: #d0d0d0;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
 }
 
 /* Results Section */
 .results-section {
-    padding: 5px 0; /* NEW: Reduced padding for mobile */
+    padding: 5px 0; /* Reduced padding for mobile */
 }
 
 .results-summary {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px; /* NEW: Reduced gap for mobile */
-    margin-bottom: 25px; /* NEW: Reduced margin for mobile */
+    gap: 15px; /* Reduced gap for mobile */
+    margin-bottom: 25px; /* Reduced margin for mobile */
 }
 
-/* NEW: Mobile-first responsive grid */
+/* Mobile-first responsive grid */
 @media (max-width: 768px) {
     .results-summary {
         grid-template-columns: 1fr;
@@ -219,8 +287,8 @@ header h1 {
 
 .result-card {
     background: white;
-    border-radius: 12px; /* NEW: Slightly smaller radius for mobile */
-    padding: 20px 15px; /* NEW: Reduced padding for mobile */
+    border-radius: 12px; /* Slightly smaller radius for mobile */
+    padding: 20px 15px; /* Reduced padding for mobile */
     text-align: center;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     border: 1px solid #eaeaea;
@@ -238,9 +306,9 @@ header h1 {
 }
 
 .result-label {
-    font-size: clamp(0.85rem, 2vw, 1rem); /* NEW: Fluid font size */
+    font-size: clamp(0.85rem, 2vw, 1rem); /* Fluid font size */
     color: #666;
-    margin-bottom: 8px; /* NEW: Reduced margin for mobile */
+    margin-bottom: 8px; /* Reduced margin for mobile */
     font-weight: 600;
 }
 
@@ -249,11 +317,11 @@ header h1 {
 }
 
 .result-value {
-    font-size: clamp(1.5rem, 4vw, 2.2rem); /* NEW: Fluid font size */
+    font-size: clamp(1.5rem, 4vw, 2.2rem); /* Fluid font size */
     font-weight: 700;
-    margin: 8px 0; /* NEW: Reduced margin for mobile */
+    margin: 8px 0; /* Reduced margin for mobile */
     color: #2c3e50;
-    word-break: break-word; /* NEW: Prevent overflow */
+    word-break: break-word; /* Prevent overflow */
 }
 
 .result-card.primary .result-value {
@@ -261,33 +329,37 @@ header h1 {
 }
 
 .result-note {
-    font-size: clamp(0.8rem, 1.5vw, 0.9rem); /* NEW: Fluid font size */
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem); /* Fluid font size */
     color: #888;
     margin-top: 5px;
+}
+
+.result-card.primary .result-note {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* Chart Section */
 .chart-section {
     background: #f8f9fa;
     border-radius: 15px;
-    padding: 20px; /* NEW: Reduced padding for mobile */
-    margin-bottom: 25px; /* NEW: Reduced margin for mobile */
+    padding: 20px; /* Reduced padding for mobile */
+    margin-bottom: 25px; /* Reduced margin for mobile */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .chart-section h3 {
     color: #2c3e50;
-    margin-bottom: 15px; /* NEW: Reduced margin for mobile */
+    margin-bottom: 15px; /* Reduced margin for mobile */
     display: flex;
     align-items: center;
-    gap: 8px; /* NEW: Reduced gap for mobile */
-    font-size: clamp(1rem, 2.5vw, 1.3rem); /* NEW: Fluid font size */
+    gap: 8px; /* Reduced gap for mobile */
+    font-size: clamp(1rem, 2.5vw, 1.3rem); /* Fluid font size */
 }
 
 .chart-container {
     position: relative;
-    height: 250px; /* NEW: Reduced height for mobile */
-    margin-bottom: 15px; /* NEW: Reduced margin for mobile */
+    height: 250px; /* Reduced height for mobile */
+    margin-bottom: 15px; /* Reduced margin for mobile */
 }
 
 @media (min-width: 768px) {
@@ -305,19 +377,19 @@ header h1 {
 .chart-legend {
     display: flex;
     justify-content: center;
-    gap: 15px; /* NEW: Reduced gap for mobile */
+    gap: 15px; /* Reduced gap for mobile */
     flex-wrap: wrap;
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    gap: 6px; /* NEW: Reduced gap for mobile */
+    gap: 6px; /* Reduced gap for mobile */
 }
 
 .legend-color {
-    width: 16px; /* NEW: Reduced size for mobile */
-    height: 16px; /* NEW: Reduced size for mobile */
+    width: 16px; /* Reduced size for mobile */
+    height: 16px; /* Reduced size for mobile */
     border-radius: 4px;
 }
 
@@ -325,57 +397,57 @@ header h1 {
 .amortization-section {
     background: #f8f9fa;
     border-radius: 15px;
-    padding: 20px; /* NEW: Reduced padding for mobile */
+    padding: 20px; /* Reduced padding for mobile */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .section-header {
-    margin-bottom: 20px; /* NEW: Reduced margin for mobile */
+    margin-bottom: 20px; /* Reduced margin for mobile */
 }
 
 .section-subtitle {
     color: #666;
     margin-top: 5px;
-    font-size: clamp(0.85rem, 2vw, 1rem); /* NEW: Fluid font size */
+    font-size: clamp(0.85rem, 2vw, 1rem); /* Fluid font size */
 }
 
 .table-controls {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px; /* NEW: Reduced margin for mobile */
+    margin-bottom: 15px; /* Reduced margin for mobile */
     flex-wrap: wrap;
-    gap: 12px; /* NEW: Reduced gap for mobile */
+    gap: 12px; /* Reduced gap for mobile */
 }
 
 .entries-control, .search-control {
     display: flex;
     align-items: center;
-    gap: 8px; /* NEW: Reduced gap for mobile */
-    flex: 1; /* NEW: Allow flexible sizing */
-    min-width: 200px; /* NEW: Minimum width */
+    gap: 8px; /* Reduced gap for mobile */
+    flex: 1; /* Allow flexible sizing */
+    min-width: 200px; /* Minimum width */
 }
 
 .entries-control label {
     font-weight: 600;
     color: #2c3e50;
-    font-size: clamp(0.85rem, 2vw, 1rem); /* NEW: Fluid font size */
+    font-size: clamp(0.85rem, 2vw, 1rem); /* Fluid font size */
 }
 
 .entries-control select, .search-control input {
-    padding: 7px 12px; /* NEW: Reduced padding for mobile */
+    padding: 7px 12px; /* Reduced padding for mobile */
     border-radius: 8px;
     border: 1px solid #ddd;
     background: white;
     color: #333;
     font-weight: 600;
     cursor: pointer;
-    font-size: clamp(0.85rem, 2vw, 1rem); /* NEW: Fluid font size */
-    width: 100%; /* NEW: Full width for mobile */
+    font-size: clamp(0.85rem, 2vw, 1rem); /* Fluid font size */
+    width: 100%; /* Full width for mobile */
 }
 
 .search-control input {
-    width: 100%; /* NEW: Full width on mobile */
-    min-width: 150px; /* NEW: Minimum width */
+    width: 100%; /* Full width on mobile */
+    min-width: 150px; /* Minimum width */
 }
 
 /* Table */
@@ -384,15 +456,15 @@ header h1 {
     border-radius: 10px;
     border: 1px solid #e0e0e0;
     background: white;
-    margin: 0 -5px; /* NEW: Negative margin for better scrolling */
-    padding: 0 5px; /* NEW: Add padding for scrollbar space */
-    -webkit-overflow-scrolling: touch; /* NEW: Smooth scrolling on iOS */
+    margin: 0 -5px; /* Negative margin for better scrolling */
+    padding: 0 5px; /* Add padding for scrollbar space */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 700px; /* NEW: Reduced minimum width for mobile */
+    min-width: 700px; /* Reduced minimum width for mobile */
 }
 
 thead {
@@ -401,19 +473,19 @@ thead {
 }
 
 thead th {
-    padding: 14px 12px; /* NEW: Reduced padding for mobile */
+    padding: 14px 12px; /* Reduced padding for mobile */
     text-align: left;
     font-weight: 600;
     cursor: pointer;
     user-select: none;
     position: relative;
-    font-size: clamp(0.85rem, 2vw, 1rem); /* NEW: Fluid font size */
-    white-space: nowrap; /* NEW: Prevent line breaks in headers */
+    font-size: clamp(0.85rem, 2vw, 1rem); /* Fluid font size */
+    white-space: nowrap; /* Prevent line breaks in headers */
 }
 
 thead th i {
-    margin-left: 6px; /* NEW: Reduced margin for mobile */
-    font-size: 0.75rem; /* NEW: Reduced size for mobile */
+    margin-left: 6px; /* Reduced margin for mobile */
+    font-size: 0.75rem; /* Reduced size for mobile */
     opacity: 0.7;
 }
 
@@ -427,9 +499,17 @@ tbody tr:hover {
 }
 
 tbody td {
-    padding: 12px; /* NEW: Reduced padding for mobile */
+    padding: 12px; /* Reduced padding for mobile */
     color: #333;
-    font-size: clamp(0.8rem, 1.8vw, 0.95rem); /* NEW: Fluid font size */
+    font-size: clamp(0.8rem, 1.8vw, 0.95rem); /* Fluid font size */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover:nth-child(even) {
+    background-color: #f0f5ff;
 }
 
 /* Table Footer */
@@ -437,26 +517,26 @@ tbody td {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px; /* NEW: Reduced margin for mobile */
+    margin-top: 20px; /* Reduced margin for mobile */
     flex-wrap: wrap;
-    gap: 12px; /* NEW: Reduced gap for mobile */
+    gap: 12px; /* Reduced gap for mobile */
 }
 
 .pagination-info {
     color: #666;
     font-weight: 600;
-    font-size: clamp(0.85rem, 2vw, 1rem); /* NEW: Fluid font size */
+    font-size: clamp(0.85rem, 2vw, 1rem); /* Fluid font size */
 }
 
 .pagination-controls {
     display: flex;
     align-items: center;
-    gap: 8px; /* NEW: Reduced gap for mobile */
+    gap: 8px; /* Reduced gap for mobile */
 }
 
 .page-btn {
-    width: 36px; /* NEW: Reduced size for mobile */
-    height: 36px; /* NEW: Reduced size for mobile */
+    width: 36px; /* Reduced size for mobile */
+    height: 36px; /* Reduced size for mobile */
     border-radius: 8px;
     border: 1px solid #ddd;
     background: white;
@@ -469,9 +549,24 @@ tbody td {
     transition: all 0.2s;
 }
 
+.page-btn:hover:not(:disabled) {
+    background: #f0f0f0;
+    border-color: #bbb;
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-numbers {
+    display: flex;
+    gap: 5px;
+}
+
 .page-number {
-    width: 36px; /* NEW: Reduced size for mobile */
-    height: 36px; /* NEW: Reduced size for mobile */
+    width: 36px; /* Reduced size for mobile */
+    height: 36px; /* Reduced size for mobile */
     border-radius: 8px;
     border: 1px solid #ddd;
     background: white;
@@ -482,43 +577,67 @@ tbody td {
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
-    font-size: clamp(0.85rem, 2vw, 1rem); /* NEW: Fluid font size */
+    font-size: clamp(0.85rem, 2vw, 1rem); /* Fluid font size */
+}
+
+.page-number:hover {
+    background: #f0f0f0;
+}
+
+.page-number.active {
+    background: #2c3e50;
+    color: white;
+    border-color: #2c3e50;
 }
 
 /* Education Section */
 .education-section {
-    padding: 25px 20px; /* NEW: Reduced padding for mobile */
+    padding: 25px 20px; /* Reduced padding for mobile */
     background: white;
-    margin: 25px 20px; /* NEW: Reduced margin for mobile */
+    margin: 25px 20px; /* Reduced margin for mobile */
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .education-section h2 {
     color: #2c3e50;
-    margin-bottom: 12px; /* NEW: Reduced margin for mobile */
+    margin-bottom: 12px; /* Reduced margin for mobile */
     display: flex;
     align-items: center;
-    gap: 8px; /* NEW: Reduced gap for mobile */
-    font-size: clamp(1.2rem, 3vw, 1.5rem); /* NEW: Fluid font size */
+    gap: 8px; /* Reduced gap for mobile */
+    font-size: clamp(1.2rem, 3vw, 1.5rem); /* Fluid font size */
 }
 
 .education-intro {
     color: #666;
-    margin-bottom: 20px; /* NEW: Reduced margin for mobile */
-    font-size: clamp(0.9rem, 2vw, 1.1rem); /* NEW: Fluid font size */
+    margin-bottom: 20px; /* Reduced margin for mobile */
+    font-size: clamp(0.9rem, 2vw, 1.1rem); /* Fluid font size */
     max-width: 800px;
     line-height: 1.6;
 }
 
 /* Accordion */
+.accordion {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.accordion-item:last-child {
+    border-bottom: none;
+}
+
 .accordion-header {
     width: 100%;
-    padding: 18px 20px; /* NEW: Reduced padding for mobile */
+    padding: 18px 20px; /* Reduced padding for mobile */
     background: #f8f9fa;
     border: none;
     text-align: left;
-    font-size: clamp(1rem, 2.5vw, 1.2rem); /* NEW: Fluid font size */
+    font-size: clamp(1rem, 2.5vw, 1.2rem); /* Fluid font size */
     font-weight: 600;
     color: #2c3e50;
     cursor: pointer;
@@ -528,14 +647,30 @@ tbody td {
     transition: background-color 0.3s;
 }
 
+.accordion-header:hover {
+    background: #e9ecef;
+}
+
 .accordion-header i:first-child {
-    margin-right: 12px; /* NEW: Reduced margin for mobile */
-    font-size: 1.1rem; /* NEW: Reduced size for mobile */
+    margin-right: 12px; /* Reduced margin for mobile */
+    font-size: 1.1rem; /* Reduced size for mobile */
     color: #3498db;
 }
 
+.accordion-header.active {
+    background: #e3f2fd;
+}
+
+.accordion-header.active .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.accordion-header .fa-chevron-down {
+    transition: transform 0.3s;
+}
+
 .accordion-content {
-    padding: 0 20px; /* NEW: Reduced padding for mobile */
+    padding: 0 20px; /* Reduced padding for mobile */
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease-out, padding 0.4s ease-out;
@@ -543,8 +678,30 @@ tbody td {
 }
 
 .accordion-content.open {
-    padding: 20px; /* NEW: Reduced padding for mobile */
+    padding: 20px; /* Reduced padding for mobile */
     max-height: 500px;
+}
+
+.accordion-content p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.tip-box {
+    background: #fff8e1;
+    border-left: 4px solid #ffc107;
+    padding: 18px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 20px;
+}
+
+.tip-box strong {
+    color: #ff9800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
 }
 
 /* Footer */
@@ -552,12 +709,56 @@ footer {
     background: #2c3e50;
     color: white;
     text-align: center;
-    padding: 20px; /* NEW: Reduced padding for mobile */
-    font-size: clamp(0.85rem, 1.5vw, 0.95rem); /* NEW: Fluid font size */
+    padding: 20px; /* Reduced padding for mobile */
+    font-size: clamp(0.85rem, 1.5vw, 0.95rem); /* Fluid font size */
     opacity: 0.9;
 }
 
-/* NEW: Ultra-small mobile devices (under 480px) */
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .calculator-wrapper, .education-section {
+        padding: 20px;
+        margin: 20px 10px;
+    }
+    
+    .input-section, .results-section, .chart-section, .amortization-section {
+        padding: 20px;
+    }
+    
+    .table-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .search-control input {
+        width: 100%;
+    }
+    
+    .table-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .result-value {
+        font-size: 1.8rem;
+    }
+}
+
+/* Ultra-small mobile devices (under 480px) */
 @media (max-width: 480px) {
     body {
         padding: 5px;
@@ -617,7 +818,7 @@ footer {
     }
 }
 
-/* NEW: Medium screens (481px to 768px) */
+/* Medium screens (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
     .calculator-wrapper {
         padding: 20px;
@@ -637,17 +838,6 @@ footer {
     }
 }
 
-/* NEW: Large tablets (769px to 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .calculator-wrapper {
-        grid-template-columns: 1fr;
-    }
-    
-    .input-section, .results-section {
-        width: 100%;
-    }
-}
-
 /* Loading Animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -658,7 +848,7 @@ footer {
     animation: fadeIn 0.5s ease-out;
 }
 
-/* NEW: Print styles for better printing */
+/* Print styles for better printing */
 @media print {
     body {
         background: white;
