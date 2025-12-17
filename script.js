@@ -3,14 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     
-    // Initialize mobile optimizations FIRST
-    initMobileOptimizations();
+    // Fix table headers on load
+    fixTableHeaders();
     
     // Initialize the calculator
     initCalculator();
     
     // Initialize the accordion
     initAccordion();
+    
+    // Set up resize listener
+    window.addEventListener('resize', handleResize);
 });
 
 // Main Calculator Initialization
@@ -51,9 +54,6 @@ function initCalculator() {
     
     // Initialize slider values display
     updateSliderValues();
-    
-    // Enhance sliders for touch devices
-    enhanceSlidersForTouch();
     
     // Set up event listeners for sliders
     loanAmountSlider.addEventListener('input', function() {
@@ -164,7 +164,7 @@ function initCalculator() {
         });
     }
     
-    // Calculate mortgage - FIXED for mobile display
+    // Calculate mortgage
     function calculateMortgage() {
         const loanAmount = parseFloat(loanAmountSlider.value);
         const annualInterestRate = parseFloat(interestRateSlider.value);
@@ -197,10 +197,6 @@ function initCalculator() {
         
         // Render amortization table
         renderAmortizationTable();
-        
-        // Optimize for mobile after calculation
-        optimizeTableForMobile();
-        setTimeout(configureChartForMobile, 100);
     }
     
     // Generate amortization schedule
@@ -376,8 +372,8 @@ function initCalculator() {
         prevPageBtn.disabled = currentPage === 1;
         nextPageBtn.disabled = currentPage === totalPages;
         
-        // Enhance pagination for touch devices
-        enhancePaginationForTouch();
+        // Fix table headers after render
+        setTimeout(fixTableHeaders, 50);
     }
     
     // Update pagination controls
@@ -422,34 +418,20 @@ function initCalculator() {
                 labels: ['Principal', 'Interest'],
                 datasets: [{
                     data: [principal, interest],
-                    backgroundColor: [
-                        '#2c3e50',  // Principal color
-                        '#3498db'   // Interest color
-                    ],
+                    backgroundColor: ['#2c3e50', '#3498db'],
                     borderWidth: 2,
                     borderColor: '#fff'
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true, // FIXED: Changed from false to true for mobile
+                maintainAspectRatio: true, // FIXED: Changed to true for mobile
                 plugins: {
                     legend: {
                         display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.raw || 0;
-                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                const percentage = Math.round((value / total) * 100);
-                                return `${label}: ${formatCurrency(value)} (${percentage}%)`;
-                            }
-                        }
                     }
                 },
-                cutout: '60%' // FIXED: Changed from '65%' to '60%' for better mobile visibility
+                cutout: '60%' // FIXED: Smaller hole for mobile
             }
         });
         
@@ -503,9 +485,6 @@ function initCalculator() {
         // Add visual feedback
         resetBtn.classList.add('fade-in');
         setTimeout(() => resetBtn.classList.remove('fade-in'), 500);
-        
-        // Re-optimize for mobile after reset
-        optimizeTableForMobile();
     }
     
     // Initialize with a sample calculation
@@ -544,142 +523,26 @@ function initAccordion() {
     }
 }
 
-// ===== MOBILE OPTIMIZATION FUNCTIONS =====
-
-function initMobileOptimizations() {
-    // Run all mobile enhancements
-    optimizeTableForMobile();
-    enhanceSlidersForTouch();
-    enhancePaginationForTouch();
-    updateSliderTouchAreas();
+// FIX: Force table headers to be horizontal
+function fixTableHeaders() {
+    const tableHeaders = document.querySelectorAll('thead th');
     
-    // Set up event listeners
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleResize);
-    
-    // Configure chart after it's created
-    setTimeout(configureChartForMobile, 500);
-}
-
-function optimizeTableForMobile() {
-    const table = document.getElementById('amortizationTable');
-    if (!table) return;
-    
-    const screenWidth = window.innerWidth;
-    const headers = table.querySelectorAll('th');
-    const allCells = table.querySelectorAll('td');
-    
-    if (screenWidth < 480) {
-        // Ultra-small screens: hide less important columns
-        table.style.fontSize = '0.85rem';
-        
-        // Hide "Cumulative Interest" column (5th column)
-        if (headers.length > 4) {
-            headers[4].style.display = 'none';
-            const cells = table.querySelectorAll('td:nth-child(5)');
-            cells.forEach(cell => cell.style.display = 'none');
-        }
-    } 
-    else if (screenWidth < 768) {
-        // Small to medium screens: show all columns but adjust
-        table.style.fontSize = '0.9rem';
-        headers.forEach(header => header.style.display = '');
-        allCells.forEach(cell => cell.style.display = '');
-    }
-    else {
-        // Desktop: reset to default
-        table.style.fontSize = '';
-        headers.forEach(header => header.style.display = '');
-        allCells.forEach(cell => cell.display = '');
-    }
-}
-
-function enhanceSlidersForTouch() {
-    const sliders = document.querySelectorAll('.slider');
-    
-    sliders.forEach(slider => {
-        // Add touch feedback
-        slider.addEventListener('touchstart', function() {
-            this.style.opacity = '0.8';
-        });
-        
-        slider.addEventListener('touchend', function() {
-            this.style.opacity = '1';
-        });
-        
-        // Prevent accidental page scrolling while sliding
-        slider.addEventListener('touchmove', function(e) {
-            e.preventDefault();
-        }, { passive: false });
+    tableHeaders.forEach(header => {
+        // Force horizontal text
+        header.style.writingMode = 'horizontal-tb';
+        header.style.textOrientation = 'mixed';
+        header.style.transform = 'none';
+        header.style.whiteSpace = 'normal';
+        header.style.display = 'table-cell';
+        header.style.verticalAlign = 'middle';
     });
 }
 
-function enhancePaginationForTouch() {
-    const pageBtns = document.querySelectorAll('.page-btn, .page-number');
-    
-    pageBtns.forEach(btn => {
-        // Increase touch target size
-        btn.style.minHeight = '44px';
-        btn.style.minWidth = '44px';
-        btn.style.display = 'flex';
-        btn.style.alignItems = 'center';
-        btn.style.justifyContent = 'center';
-        
-        // Add visual feedback for touch
-        btn.addEventListener('touchstart', function() {
-            this.style.transform = 'scale(0.95)';
-            this.style.opacity = '0.8';
-        });
-        
-        btn.addEventListener('touchend', function() {
-            this.style.transform = '';
-            this.style.opacity = '';
-        });
-    });
-}
-
-function updateSliderTouchAreas() {
-    const sliders = document.querySelectorAll('.slider');
-    const screenWidth = window.innerWidth;
-    
-    // Adjust slider thumb size for touch devices
-    const thumbSize = screenWidth < 768 ? '28px' : '24px';
-    
-    sliders.forEach(slider => {
-        slider.style.setProperty('--thumb-size', thumbSize);
-    });
-}
-
+// Handle window resize
 let resizeTimeout;
 function handleResize() {
-    // Debounce resize events for better performance
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(function() {
-        optimizeTableForMobile();
-        configureChartForMobile();
-        updateSliderTouchAreas();
+        fixTableHeaders();
     }, 150);
-}
-
-function configureChartForMobile() {
-    const screenWidth = window.innerWidth;
-    const chartCanvas = document.getElementById('paymentChart');
-    
-    if (!chartCanvas) return;
-    
-    const chart = Chart.getChart('paymentChart');
-    if (!chart) return;
-    
-    // Adjust chart size based on screen
-    if (screenWidth < 768) {
-        chart.options.plugins.legend.position = 'bottom';
-        chart.options.plugins.legend.labels.boxWidth = 12;
-        chart.options.plugins.legend.labels.font.size = 10;
-    } else {
-        chart.options.plugins.legend.position = 'right';
-        chart.options.plugins.legend.labels.boxWidth = 16;
-        chart.options.plugins.legend.labels.font.size = 12;
-    }
-    
-    chart.update('none');
 }
