@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     
-    // ===== ADDED: Initialize mobile optimizations FIRST =====
+    // Initialize mobile optimizations FIRST
     initMobileOptimizations();
-    // =======================================================
     
     // Initialize the calculator
     initCalculator();
@@ -53,9 +52,8 @@ function initCalculator() {
     // Initialize slider values display
     updateSliderValues();
     
-    // ===== ADDED: Enhance sliders for touch devices =====
+    // Enhance sliders for touch devices
     enhanceSlidersForTouch();
-    // ====================================================
     
     // Set up event listeners for sliders
     loanAmountSlider.addEventListener('input', function() {
@@ -166,7 +164,7 @@ function initCalculator() {
         });
     }
     
-    // Calculate mortgage
+    // Calculate mortgage - FIXED for mobile display
     function calculateMortgage() {
         const loanAmount = parseFloat(loanAmountSlider.value);
         const annualInterestRate = parseFloat(interestRateSlider.value);
@@ -200,10 +198,9 @@ function initCalculator() {
         // Render amortization table
         renderAmortizationTable();
         
-        // ===== ADDED: Optimize for mobile after calculation =====
+        // Optimize for mobile after calculation
         optimizeTableForMobile();
         setTimeout(configureChartForMobile, 100);
-        // =======================================================
     }
     
     // Generate amortization schedule
@@ -379,9 +376,8 @@ function initCalculator() {
         prevPageBtn.disabled = currentPage === 1;
         nextPageBtn.disabled = currentPage === totalPages;
         
-        // ===== ADDED: Enhance pagination for touch devices =====
+        // Enhance pagination for touch devices
         enhancePaginationForTouch();
-        // =======================================================
     }
     
     // Update pagination controls
@@ -410,7 +406,7 @@ function initCalculator() {
         }
     }
     
-    // Update chart
+    // Update chart - FIXED for mobile visibility
     function updateChart(principal, interest) {
         const ctx = document.getElementById('paymentChart').getContext('2d');
         
@@ -419,7 +415,7 @@ function initCalculator() {
             paymentChart.destroy();
         }
         
-        // Create new chart
+        // Create new chart with mobile-friendly settings
         paymentChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -436,7 +432,7 @@ function initCalculator() {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true, // FIXED: Changed from false to true for mobile
                 plugins: {
                     legend: {
                         display: false
@@ -453,7 +449,7 @@ function initCalculator() {
                         }
                     }
                 },
-                cutout: '65%'
+                cutout: '60%' // FIXED: Changed from '65%' to '60%' for better mobile visibility
             }
         });
         
@@ -467,10 +463,6 @@ function initCalculator() {
             <div class="legend-item">
                 <div class="legend-color" style="background-color: #3498db;"></div>
                 <span>Interest: ${formatCurrency(interest)}</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background: linear-gradient(to right, #2c3e50, #3498db);"></div>
-                <span><strong>Total: ${formatCurrency(principal + interest)}</strong></span>
             </div>
         `;
     }
@@ -512,9 +504,8 @@ function initCalculator() {
         resetBtn.classList.add('fade-in');
         setTimeout(() => resetBtn.classList.remove('fade-in'), 500);
         
-        // ===== ADDED: Re-optimize for mobile after reset =====
+        // Re-optimize for mobile after reset
         optimizeTableForMobile();
-        // =====================================================
     }
     
     // Initialize with a sample calculation
@@ -554,7 +545,6 @@ function initAccordion() {
 }
 
 // ===== MOBILE OPTIMIZATION FUNCTIONS =====
-// ADD ALL THESE FUNCTIONS AFTER THE initAccordion() function
 
 function initMobileOptimizations() {
     // Run all mobile enhancements
